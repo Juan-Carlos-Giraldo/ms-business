@@ -1,6 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Departamento from './Departamento'
+import Direccion from './Direccion'
+import CentroDistribucion from './CentroDistribucion'
+import Operacion from './Operacion'
 
 export default class Municipio extends BaseModel {
   @column({ isPrimary: true })
@@ -26,8 +29,29 @@ export default class Municipio extends BaseModel {
   //Relacion pertenece a 
   @belongsTo(() => Departamento, {
     //Clave foranea
-    foreignKey: 'theater_id'
+    foreignKey: 'departamento_id'
   })
   public departamento: BelongsTo<typeof Departamento>
   
+  //Relacion tiene muchos
+  @hasMany(() => Direccion, {
+  //Nombre de la clave foranea que permita la relacion
+  foreignKey: 'municipio_id'
+  })
+  public direccions: HasMany<typeof Direccion>
+
+  //Relacion tiene muchos
+  @hasMany(() => CentroDistribucion, {
+  //Nombre de la clave foranea que permita la relacion
+  foreignKey: 'municipio_id'
+  })
+  public centrodistribucions: HasMany<typeof CentroDistribucion>
+
+  //Relacion tiene muchos
+  @hasMany(() => Operacion, {
+  //Nombre de la clave foranea que permita la relacion
+  foreignKey: 'municipio_id'
+  })
+  public operacions: HasMany<typeof Operacion>
+
 }
