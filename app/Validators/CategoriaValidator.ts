@@ -29,9 +29,9 @@ export default class CategoriaValidator {
       allow: ['space', 'underscore', 'dash']
     }),rules.unique({ table: 'categorias', column: 'name' })]),
     description: schema.string(),
-    parent_id: schema.number([
+    /*parent_id: schema.number([
       rules.exists({ table: 'categorias', column: 'id' })
-    ]),    
+    ]),  */  
   })
 
   /**

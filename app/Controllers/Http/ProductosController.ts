@@ -8,6 +8,9 @@ export default class ProductosController {
         //Entonces si viene un id en los parametros, busco el teatro con ese id
         if (params.id) {
             let theProducto: Producto = await Producto.findOrFail(params.id)
+            await theProducto.load('categoriaproductos' , queryCategoriaProductos => {
+                queryCategoriaProductos.preload('categoria')
+            }) //Carga la relacion de teatro con categoria
             return theProducto;
         //Sino, se buscan todos los teatros
         } else {
