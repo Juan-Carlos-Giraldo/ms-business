@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Contrato from './Contrato'
 
 export default class Cuota extends BaseModel {
   @column({ isPrimary: true })
@@ -20,10 +21,10 @@ export default class Cuota extends BaseModel {
   // Relaciones
 
   // Relacion de le pertenece a... Contrato
-  // @belongsTo(() => Contrato, {
-  //   foreignKey: 'contrato_id'
-  // })
-  // public contrato: BelongsTo<typeof Contrato>
+  @belongsTo(() => Contrato, {
+    foreignKey: 'contrato_id'
+  })
+  public contrato: BelongsTo<typeof Contrato>
 
   // Relacion de tiene uno... Factura
   // @hasOne(() => Factura, {

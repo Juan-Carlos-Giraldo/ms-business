@@ -8,9 +8,9 @@ export default class extends BaseSchema {
       table.increments('id')
       table.double('peso').notNullable()
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
+      
+      // Relaciones Ruta
+      table.integer('ruta_id').unsigned().references('id').inTable('rutas')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
