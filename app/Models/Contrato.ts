@@ -31,6 +31,12 @@ export default class Contrato extends BaseModel {
   // })
   // public cliente: BelongsTo<typeof Cliente>
 
+  // Relacion de tiene muchos... Cuota
+  // @hasMany(() => Cuota, {
+  //   foreignKey: 'contrato_id'
+  // })
+  // public cuotas: HasMany<typeof Cuota>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
