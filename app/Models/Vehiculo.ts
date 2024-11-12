@@ -32,13 +32,13 @@ export default class Vehiculo extends BaseModel {
   @hasMany(() => Operacion, {
     //Nombre de la clave foranea que permita la relacion
     foreignKey: 'vehiculo_id'
-    })
-    public operacions: HasMany<typeof Operacion>
+  })
+  public operacions: HasMany<typeof Operacion>
 
-    // Relacion de tiene muchos... Ruta
-    @hasMany(() => Ruta, {
-      foreignKey: 'vehiculo_id'
-    })
-    public rutas: HasMany<typeof Ruta>
-  
+  // Relacion de tiene muchos... Ruta
+  @hasMany(() => Ruta, {
+    foreignKey: 'vehiculo_id'
+  })
+  public rutas: HasMany<typeof Ruta>
+
 }
