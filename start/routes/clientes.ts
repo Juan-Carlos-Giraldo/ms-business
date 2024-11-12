@@ -1,8 +1,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
-    Route.get('/', 'ClientesController.index')
-    Route.post('/', 'ClientesController.store')
-    Route.get('/:id', 'ClientesController.show')
+    Route.get('/', 'ClientesController.find')
+    Route.post('/', 'ClientesController.create')
+    Route.get('/:id', 'ClientesController.find')
     Route.put('/:id', 'ClientesController.update')
-    Route.delete('/:id', 'ClientesController.destroy')
+    Route.delete('/:id', 'ClientesController.delete')
 }).prefix('/clientes')
