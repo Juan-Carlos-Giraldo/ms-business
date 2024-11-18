@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Factura from 'App/Models/Factura';
 import FacturaValidator from 'App/Validators/FacturaValidator';
+import axios from 'axios';
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class FacturasController {
     //Params son los parametros que vienen en la URL
@@ -49,5 +51,12 @@ export default class FacturasController {
         const theFactura: Factura = await Factura.findOrFail(params.id);
         response.status(204);
         return await theFactura.delete();
+    }
+
+    public async sendFactura({ params, response }: HttpContextContract) {
+        const theFactura: Factura = await Factura.findOrFail(params.id);
+        const result = await axios.post(`${Env.get('MS_NOTIFICATION')}/sendFactura`, theFactura)
+        response.status(204);
+        return await result.data;
     }
 }
