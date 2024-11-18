@@ -6,6 +6,8 @@ import Env from '@ioc:Adonis/Core/Env';
 import { Exception } from '@adonisjs/core/build/standalone';
 import AdministradorValidator from 'App/Validators/AdministradorValidator'; // Importar el validador
 
+//solo espero que funcione
+
 export default class AdministradorsController {
 
     // Método de búsqueda
