@@ -1,28 +1,27 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import DueOVehiculo from 'App/Models/DueOVehiculo';
+import Seguro from 'App/Models/Seguro';
 import { Exception } from '@adonisjs/core/build/standalone';
-import DuenoVehiculoValidator from 'App/Validators/DueOVehiculoValidator'; // Importar el validador
+import SeguroValidator from 'App/Validators/SeguroValidator'; // Importar el validador
 
-export default class DueOVehiculosController {
-     // Método de búsqueda
+export default class SegurosController {
+  // Método de búsqueda
   public async find({ request, params }: HttpContextContract) {
-    let theDuenoVehiculo;
+    let theSeguro;
     
 
     try {
       if (params.id) {
-        theDuenoVehiculo = await DueOVehiculo.findOrFail(params.id);
-        await theDuenoVehiculo.load('dueno');
-        await theDuenoVehiculo.load('vehiculo');
-        return theDuenoVehiculo;
+        theSeguro = await Seguro.findOrFail(params.id);
+        await theSeguro.load('vehiculo');
+        return theSeguro;
       } else {
         const data = request.all();
         if ("page" in data && "per_page" in data) {
           const page = request.input('page', 1);
           const perPage = request.input("per_page", 20);
-          return await DueOVehiculo.query().paginate(page, perPage);
+          return await Seguro.query().paginate(page, perPage);
         } else {
-          return await DueOVehiculo.query();
+          return await Seguro.query();
         }
       }
     } catch (error) {
@@ -30,20 +29,22 @@ export default class DueOVehiculosController {
     }
   }
 
-  // Método para crear un DuenoVehiculo
+  // Método para crear un Seguro
   public async create({ request, response }: HttpContextContract) {
     try {
-      // Validar datos usando el DuenoVehiculoValidator
-      const payload = await request.validate(DuenoVehiculoValidator);
+      // Validar datos usando el SeguroValidator
+      const payload = await request.validate(SeguroValidator);
 
       // Convertir fecha_nacimiento a Date
-      const fecha_adquisicion = payload.fecha_adquisicion.toJSDate();
+      const fecha_inicio = payload.fecha_inicio.toJSDate();
+      const fecha_fin = payload.fecha_fin.toJSDate();
 
-      const theDuenoVehiculo = await DueOVehiculo.create({
+      const theSeguro = await Seguro.create({
         ...payload,
-        fecha_adquisicion: fecha_adquisicion
+        fecha_inicio: fecha_inicio,
+        fecha_fin: fecha_fin
       });
-      return theDuenoVehiculo;
+      return theSeguro;
       
     } catch (error) {
       // Si el error es de validación, devolver los mensajes de error de forma legible
@@ -55,13 +56,13 @@ export default class DueOVehiculosController {
     }
   }
 
-  // Método para actualizar un DuenoVehiculo
+  // Método para actualizar un Seguro
   public async update({ params, request, response }: HttpContextContract) {
     let payload;
 
     try {
-      // Validar los datos con DuenoVehiculoValidator
-      payload = await request.validate(DuenoVehiculoValidator);
+      // Validar los datos con SeguroValidator
+      payload = await request.validate(SeguroValidator);
     } catch (error) {
       // Si el error es de validación, devolver los mensajes de error de forma legible
       if (error.messages) {
@@ -71,20 +72,21 @@ export default class DueOVehiculosController {
       throw new Exception(error.message || 'Error al procesar la solicitud', error.status || 500);
     }
 
-    const fecha_adquisicion = payload.fecha_adquisicion.toJSDate();
-    // Obtener el DuenoVehiculo y actualizar los datos
-    const theDuenoVehiculo = await DueOVehiculo.findOrFail(params.id);
-    theDuenoVehiculo.fecha_adquisicion= fecha_adquisicion;
-    theDuenoVehiculo.porcentaje_propiedad = payload.porcentaje_propiedad;
-    theDuenoVehiculo.dueno_id= payload.dueno_id;
-    theDuenoVehiculo.vehiculo_id= payload.vehiculo_id;
-    return await theDuenoVehiculo.save();
+    const fecha_inicio = payload.fecha_inicio.toJSDate();
+      const fecha_fin = payload.fecha_fin.toJSDate();
+    // Obtener el Seguro y actualizar los datos
+    const theSeguro = await Seguro.findOrFail(params.id);
+    theSeguro.fecha_inicio= fecha_inicio;
+    theSeguro.fecha_fin = fecha_fin;
+    theSeguro.compania_aseguradora= payload.compania_aseguradora;
+    theSeguro.vehiculo_id= payload.vehiculo_id;
+    return await theSeguro.save();
   }
 
-  // Método para eliminar un DuenoVehiculo
+  // Método para eliminar un Seguro
   public async delete({ params, response }: HttpContextContract) {
-    const theDuenoVehiculo = await DueOVehiculo.findOrFail(params.id);
+    const theSeguro = await Seguro.findOrFail(params.id);
     response.status(204);
-    return await theDuenoVehiculo.delete();
+    return await theSeguro.delete();
   }
 }
