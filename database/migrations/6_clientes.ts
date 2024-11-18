@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       // Campos de la tabla, puede ser empresa o persona natural, no usar atributos de ambas
       table.string("nit").notNullable();
       table.string("dpi").notNullable();
+      table.string("contacto").notNullable();
 
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });

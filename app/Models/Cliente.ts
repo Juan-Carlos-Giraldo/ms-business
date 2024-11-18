@@ -13,6 +13,9 @@ export default class Cliente extends BaseModel {
   @column()
   public dpi: string;
 
+  @column()
+  public contacto: string;
+
   // Relaciones
 
   // Relacion tiene muchos... Producto

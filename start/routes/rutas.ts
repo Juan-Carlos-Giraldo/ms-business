@@ -6,4 +6,4 @@ Route.group(() => {
     Route.get('/:id', 'RutasController.find')
     Route.put('/:id', 'RutasController.update')
     Route.delete('/:id', 'RutasController.delete')
-}).prefix('/rutas')
+}).prefix('/rutas').middleware('security');

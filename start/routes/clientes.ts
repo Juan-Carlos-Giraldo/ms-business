@@ -5,4 +5,4 @@ Route.group(() => {
     Route.get('/:id', 'ClientesController.find')
     Route.put('/:id', 'ClientesController.update')
     Route.delete('/:id', 'ClientesController.delete')
-}).prefix('/clientes')
+}).prefix('/clientes').middleware('security');
