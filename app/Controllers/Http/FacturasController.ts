@@ -54,9 +54,23 @@ export default class FacturasController {
     }
 
     public async sendFactura({ params, response }: HttpContextContract) {
-        const theFactura: Factura = await Factura.findOrFail(params.id);
-        const result = await axios.post(`${Env.get('MS_NOTIFICATION')}/sendFactura`, theFactura)
-        response.status(204);
-        return await result.data;
+        try {
+            const theFactura: Factura = await Factura.findOrFail(params.id);
+            // pasar theFactura a json y agregarle subject y recipients
+            const facturaData = theFactura.toJSON();
+            facturaData.subject = 'Factura Notification';
+            facturaData.recipients = [
+                {
+                    "name": "Juan Carlos Giraldo",
+                    "email": "juan.giraldo43633@ucaldas.edu.co"
+                }
+            ];
+            const result = await axios.post(`${Env.get('MS_NOTIFICATION')}/sendFactura`, facturaData)
+            response.status(204);
+            return await result.data;
+        } catch (error) {
+            response.status(500);
+            return;
+        }
     }
 }

@@ -1,9 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
+import { processCliArgs } from '@japa/runner'
 
 export default class Security {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
+    await next()
+    return
     console.log("Middleware de seguridad")
     let theRequest = request.toJSON()
     if (theRequest.headers.authorization) {

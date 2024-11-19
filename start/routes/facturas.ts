@@ -6,4 +6,5 @@ Route.group(() => {
     Route.get('/:id', 'FacturasController.find')
     Route.put('/:id', 'FacturasController.update')
     Route.delete('/:id', 'FacturasController.delete')
+    Route.post('/:id/sendFactura', 'FacturasController.sendFactura')
 }).prefix('/facturas').middleware('security');
