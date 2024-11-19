@@ -10,7 +10,8 @@ export default class extends BaseSchema {
 
       
       // Relaciones Ruta
-      table.integer('ruta_id').unsigned().references('id').inTable('rutas')
+      //table.integer('ruta_id').unsigned().references('id').inTable('rutas')
+      table.integer('dir_lista_orden_id').unsigned().references('dir_lista_ordenes.id').notNullable().onDelete('CASCADE')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

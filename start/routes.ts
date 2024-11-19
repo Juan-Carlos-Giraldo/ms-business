@@ -50,4 +50,7 @@ import './routes/restaurantes'
 import './routes/gastos'
 import './routes/turnos'
 import './routes/usuarios'
-
+import './routes/empresas'
+import './routes/personasNaturales'
+import './routes/dirListaOrdendes'
+import "./routes/seguros"
