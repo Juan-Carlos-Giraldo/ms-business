@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ConductorValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
 
   public schema = schema.create({
@@ -20,13 +20,14 @@ export default class ConductorValidator {
       rules.required() // Hace que el campo sea obligatorio
     ]),
     fecha_vencimiento_licencia: schema.date({
-        format: 'yyyy-MM-dd'
-      }, [
-        rules.required() // Hace que el campo sea obligatorio
-      ]),
+      format: 'yyyy-MM-dd'
+    }, [
+      rules.required() // Hace que el campo sea obligatorio
+    ]),
     usuario_id: schema.string([
-        rules.required(),
-      ])
+      rules.required(),
+      rules.exists({ table: 'usuarios', column: 'id' })
+    ])
   })
 
   public messages: CustomMessages = {

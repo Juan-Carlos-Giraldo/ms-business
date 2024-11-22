@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ProductoValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -27,10 +27,13 @@ export default class ProductoValidator {
     //Se ponen los atributos que se desean revisar
     name: schema.string([rules.alphaNum({
       allow: ['space', 'underscore', 'dash']
-    }),rules.unique({ table: 'productos', column: 'name' })]),
+    }), rules.unique({ table: 'productos', column: 'name' })]),
     description: schema.string(),
     price: schema.number(),
     stock: schema.number(),
+    cliente_id: schema.number([
+      rules.exists({ table: 'cliente', column: 'id' })
+    ])
   })
 
   /**

@@ -28,8 +28,12 @@ export default class FacturaValidator {
     fecha: schema.date({}, [rules.required()]),
     total: schema.string({}, [rules.required()]),
     estado: schema.string({}, [rules.required()]),
-    cuota_id: schema.number.optional(),
-    gasto_id: schema.number.optional(),
+    cuota_id: schema.number.optional([
+      rules.exists({ table: 'cuotas', column: 'id' })
+    ]),
+    gasto_id: schema.number.optional([
+      rules.exists({ table: 'gastos', column: 'id' })
+    ]),
   })
 
   /**

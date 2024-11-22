@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class AdministradorValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -24,13 +24,12 @@ export default class AdministradorValidator {
    *    ```
    */
   public schema = schema.create({
-    tipo:schema.string([rules.alphaNum({
-      allow: ['space', 'underscore', 'dash']
-    }), rules.required()]),
-    telefono: schema.string([
+    tipo: schema.string({ trim: true }, [rules.required(), rules.alphaNum()]),
+    telefono: schema.string({ trim: true }, [
       rules.required(),
-      rules.regex(/^[0-9-]+$/) // Solo permite números y guiones
+      rules.regex(/^[0-9-]+$/)
     ])
+
   })
 
   /**
