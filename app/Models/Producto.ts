@@ -9,6 +9,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import CategoriaProducto from "./CategoriaProducto";
 import Cliente from "./Cliente";
+import Lote from "./Lote";
 
 export default class Producto extends BaseModel {
   @column({ isPrimary: true })
