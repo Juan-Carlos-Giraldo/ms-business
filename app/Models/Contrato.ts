@@ -20,6 +20,9 @@ export default class Contrato extends BaseModel {
   @column()
   public estado: string
 
+  @column()
+  public cliente_id: number
+
   // Relaciones
 
   // Relacion de tiene muchos... Ruta

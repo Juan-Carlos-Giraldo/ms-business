@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class RutaValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -29,8 +29,8 @@ export default class RutaValidator {
     destino: schema.string(),
     distancia: schema.number(),
     // Relaciones
-    vehiculo_id: schema.number([ rules.exists({ table: 'vehiculos', column: 'id' }) ]),
-    contrato_id: schema.number([ rules.exists({ table: 'contratos', column: 'id' }) ]),
+    vehiculo_id: schema.number([rules.exists({ table: 'vehiculos', column: 'id' })]),
+    contrato_id: schema.number([rules.exists({ table: 'contratoes', column: 'id' })]),
   })
 
   /**

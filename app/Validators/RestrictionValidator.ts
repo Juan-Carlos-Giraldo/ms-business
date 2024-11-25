@@ -1,7 +1,7 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class MunicipioValidator {
+export default class RestrictionValidator {
   constructor(protected ctx: HttpContextContract) { }
 
   /*
@@ -24,7 +24,16 @@ export default class MunicipioValidator {
    *    ```
    */
   public schema = schema.create({
-
+    description: schema.string(),
+    fStart: schema.date({
+      format: 'yyyy-MM-dd'
+    }),
+    fEnd: schema.date({
+      format: 'yyyy-MM-dd'
+    }),
+    municipio_id: schema.number([
+      rules.exists({ table: 'municipios', column: 'id' })
+    ])
   })
 
   /**

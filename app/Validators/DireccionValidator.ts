@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class DireccionValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -28,7 +28,7 @@ export default class DireccionValidator {
     neighborhood: schema.string(),
     address: schema.string(),
     comentaries: schema.string.optional(),
-    municipio_id: schema.number([
+    municipio_id: schema.number.optional([
       rules.exists({ table: 'municipios', column: 'id' })
     ]),
   })

@@ -12,16 +12,16 @@ export default class DirListaOrden extends BaseModel {
   public id: number
 
   @column()
-  public orden:number
+  public orden: number
 
   @column()
-  public descripcion:string
+  public descripcion: string
 
   @column()
-  public ruta_id:number
+  public ruta_id: number
 
   @column()
-  public direccion_id:number
+  public direccion_id: number
 
 
 
@@ -31,18 +31,18 @@ export default class DirListaOrden extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(()=> Ruta,{
+  @belongsTo(() => Ruta, {
     foreignKey: 'ruta_id'
   })
   public ruta: BelongsTo<typeof Ruta>
 
-  @belongsTo(()=> Direccion,{
+  @belongsTo(() => Direccion, {
     foreignKey: 'direccion_id'
   })
-  public direccion : BelongsTo<typeof Direccion>
+  public direccion: BelongsTo<typeof Direccion>
 
-  @hasOne(() =>Lote,{
-    foreignKey:'dir_lista_orden_id'
+  @hasOne(() => Lote, {
+    foreignKey: 'dir_lista_orden_id'
   })
-  public projector:HasOne<typeof Lote>
+  public projector: HasOne<typeof Lote>
 }

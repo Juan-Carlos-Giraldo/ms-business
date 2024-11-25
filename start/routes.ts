@@ -54,3 +54,4 @@ import './routes/empresas'
 import './routes/personasNaturales'
 import './routes/dirListaOrdendes'
 import "./routes/seguros"
+import './routes/restriction'
