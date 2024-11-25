@@ -1,7 +1,7 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class ProductoValidator {
+export default class RestriccionValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -25,14 +25,16 @@ export default class ProductoValidator {
    */
   public schema = schema.create({
     //Se ponen los atributos que se desean revisar
-    name: schema.string([rules.alphaNum({
-      allow: ['space', 'underscore', 'dash']
-    }),rules.unique({ table: 'productos', column: 'name' })]),
-    description: schema.string(),
-    price: schema.number(),
-    stock: schema.number(),
-    cliente_id: exists({ table: 'clientes', column: 'id' }),
-  })
+    descripcion: schema.string([
+      rules.alphaNum({
+      allow: ['space', 'underscore', 'dash'] })
+      ]),
+    fecha_inicio: schema.date(),
+    fecha_fin: schema.date(),
+    municipio_id: schema.number([
+      rules.exists({ table: 'municipios', column: 'id' })
+      ])
+    })
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
@@ -47,10 +49,3 @@ export default class ProductoValidator {
    */
   public messages: CustomMessages = {}
 }
-function exists(arg0: { table: string; column: string }): any {
-  throw new Error('Function not implemented.')
-}
-
-//Descripcion, fecha_inicio, fecha fin
-//Crear y eliminar 
-//Cuando se cree, le notifiquen al dueño del vehiculo 

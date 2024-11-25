@@ -4,12 +4,23 @@ import OperacionValidator from 'App/Validators/OperacionValidator';
 
 export default class OperacionsController {
     //Params son los parametros que vienen en la URL
+    theDueno = null;
+
     public async find({ request, params }: HttpContextContract) {
-        //Entonces si viene un id en los parametros, busco el teatro con ese id
         if (params.id) {
             let theOperacion: Operacion = await Operacion.findOrFail(params.id)
+            await theOperacion.load('vehiculo' , queryVehiculo => {
+                queryVehiculo.preload('duenosVehiculos', queryDuenosVehiculos => {
+                    queryDuenosVehiculos.preload('dueno')
+                    //mandar correo a este dueño
+                })
+            }
+            )
+            await theOperacion.load('municipio' , queryMunicipio => {
+                queryMunicipio.preload('restriccions')
+            })
             return theOperacion;
-        //Sino, se buscan todos los teatros
+
         } else {
             const data = request.all()
             //Para no mandar todos los registros de una, se maneja la paginacion
@@ -19,12 +30,9 @@ export default class OperacionsController {
                 const perPage = request.input("per_page", 20);
                 return await Operacion.query().paginate(page, perPage)
             } else {
-                //Devuelve la lista de todos los teatros
                 return await Operacion.query()
             }
-
         }
-
     }
     
     //HttpContextContract es la que recibe la peticion (request) y la respuesta (response)

@@ -10,14 +10,11 @@ export default class DueOValidator {
       rules.required(),
       rules.regex(/^[0-9-]+$/) // Solo permite números y guiones
     ]),
-      fecha_nacimiento: schema.date({
-        format: 'yyyy-MM-dd'
-      }, [
-        rules.required() // Hace que el campo sea obligatorio
-      ]),
-    conductor_id: schema.number([
-      rules.exists({ table: 'conductors', column: 'id' })
-    ])
+    // fecha_nacimiento: schema.date({
+    //   format: 'yyyy-MM-dd'
+    // }, [
+    //   rules.required()
+    // ]),
   })
 
   public messages: CustomMessages = {

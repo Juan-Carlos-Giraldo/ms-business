@@ -42,8 +42,8 @@ import './routes/facturas'
 import './routes/vehiculoconductors'
 import './routes/conductors'
 import './routes/administradors'
-import './routes/dueñovehiculos'
-import './routes/dueños'
+import './routes/duenovehiculos'
+import './routes/duenos'
 import './routes/hotels'
 import './routes/servicios'
 import './routes/restaurantes'
@@ -54,3 +54,5 @@ import './routes/empresas'
 import './routes/personasNaturales'
 import './routes/dirListaOrdendes'
 import "./routes/seguros"
+import "./routes/restriccions"
+

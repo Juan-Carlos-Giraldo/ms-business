@@ -15,8 +15,6 @@ export default class DueO extends BaseModel {
   @column()
   public fecha_nacimiento: Date
 
-  @column()
-  public conductor_id: number
 
   @belongsTo(() => Conductor, {
     foreignKey: 'conductor_id'

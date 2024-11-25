@@ -42,7 +42,6 @@ export default class DueOsController {
       }
     public async create({ request }: HttpContextContract) { 
         const body = request.body();
-        const payload = await request.validate(DueOValidator);
 
         const userResponse = await axios.get(`${Env.get('MS_SECURITY')}/api/users/${body.usuario_id}`, {
             headers: { Authorization: request.headers().authorization || '' }
@@ -51,14 +50,6 @@ export default class DueOsController {
             throw new Error('No se encontró información de usuario, verifique que el codigo sea correcto');
           }
         
-          const fecha_nacimiento_date = payload.fecha_nacimiento.toJSDate();
-          
-      const theDueno = await DueO.create({
-        ...payload,
-        fecha_nacimiento: fecha_nacimiento_date,
-        });
-
-        return theDueno;
     }
 
     public async update({ params, request, response }: HttpContextContract) {
@@ -87,7 +78,6 @@ export default class DueOsController {
           usuario_id: body.usuario_id,
           fecha_nacimiento: fechaNacimientoDate,
           telefono: body.telefono,
-          conductor_id: body.conductor_id
         });
   
         return await theDueno.save();

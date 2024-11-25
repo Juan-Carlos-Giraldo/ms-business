@@ -4,6 +4,7 @@ import Departamento from './Departamento'
 import Direccion from './Direccion'
 import CentroDistribucion from './CentroDistribucion'
 import Operacion from './Operacion'
+import Restriccion from './Restriccion'
 
 export default class Municipio extends BaseModel {
   @column({ isPrimary: true })
@@ -52,6 +53,12 @@ export default class Municipio extends BaseModel {
   //Nombre de la clave foranea que permita la relacion
   foreignKey: 'municipio_id'
   })
-  public operacions: HasMany<typeof Operacion>
+  public operacions: HasMany<typeof Operacion>;
+
+  @hasMany(() => Restriccion, {
+    //Nombre de la clave foranea que permita la relacion
+    foreignKey: 'municipio_id'
+    })
+  public restriccions: HasMany<typeof Restriccion>
 
 }
