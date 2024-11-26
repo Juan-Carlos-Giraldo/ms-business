@@ -42,10 +42,10 @@ export default class Ruta extends BaseModel {
   public vehiculo: BelongsTo<typeof Vehiculo>
 
   // Relacion tiene muchos... Lote
-  // @hasMany(() => Lote, {
-  //   foreignKey: 'ruta_id'
-  // })
-  // public lotes: HasMany<typeof Lote>
+  @hasMany(() => Lote, {
+    foreignKey: 'ruta_id'
+  })
+  public lotes: HasMany<typeof Lote>
 
   // Relacion tiene muchos... Orden
   // @hasMany(() => Orden, {

@@ -3,6 +3,7 @@ import { BaseModel, column, hasMany, HasMany, HasOne, hasOne } from '@ioc:Adonis
 import DueO from './DueO'
 import VehiculoConductor from './VehiculoConductor'
 import Turno from './Turno'
+import Multa from './Multa'
 export default class Conductor extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -38,8 +39,16 @@ export default class Conductor extends BaseModel {
   })
   public VehiculosConductores: HasMany<typeof VehiculoConductor>
 
+  @hasMany(() => Multa,{
+    foreignKey:'conductor_id'
+  })
+  public Multas:HasMany<typeof Multa>
+
   @hasMany(() => Turno,{
     foreignKey:'conductor_id'
   })
   public conductores:HasMany<typeof Turno>
+
+
+
 }

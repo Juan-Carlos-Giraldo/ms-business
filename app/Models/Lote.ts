@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Producto from './Producto'
-import Ruta from './Ruta'
+//import Ruta from './Ruta'
 import DirListaOrden from "./DirListaOrden";
 
 export default class Lote extends BaseModel {
