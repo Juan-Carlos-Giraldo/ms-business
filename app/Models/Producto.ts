@@ -9,6 +9,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import CategoriaProducto from "./CategoriaProducto";
 import Cliente from "./Cliente";
+import Lote from "./Lote";
 
 export default class Producto extends BaseModel {
   @column({ isPrimary: true })
@@ -47,4 +48,10 @@ export default class Producto extends BaseModel {
     foreignKey: "cliente_id",
   })
   public cliente: BelongsTo<typeof Cliente>;
+
+  
+  @belongsTo(() => Lote, {
+    foreignKey: "lote_id",
+  })
+  public lote: BelongsTo<typeof Lote>;
 }
