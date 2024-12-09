@@ -8,11 +8,11 @@ export default class ProductosController {
         //Entonces si viene un id en los parametros, busco el teatro con ese id
         if (params.id) {
             let theProducto: Producto = await Producto.findOrFail(params.id)
-            await theProducto.load('categoriaproductos' , queryCategoriaProductos => {
+            await theProducto.load('categoriaproductos', queryCategoriaProductos => {
                 queryCategoriaProductos.preload('categoria')
             }) //Carga la relacion de teatro con categoria
             return theProducto;
-        //Sino, se buscan todos los teatros
+            //Sino, se buscan todos los teatros
         } else {
             const data = request.all()
             //Para no mandar todos los registros de una, se maneja la paginacion
@@ -29,12 +29,14 @@ export default class ProductosController {
         }
 
     }
-    
+
     //HttpContextContract es la que recibe la peticion (request) y la respuesta (response)
     public async create({ request }: HttpContextContract) {
         await request.validate(ProductoValidator);
         const body = request.body();
         const theProducto: Producto = await Producto.create(body);
+        // Imprimir el producto creado
+        console.log(body);
         return theProducto;
     }
 
@@ -50,7 +52,7 @@ export default class ProductosController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theProducto: Producto = await Producto.findOrFail(params.id);
-            response.status(204);
-            return await theProducto.delete();
+        response.status(204);
+        return await theProducto.delete();
     }
 }

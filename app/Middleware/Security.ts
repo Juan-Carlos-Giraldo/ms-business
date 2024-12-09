@@ -5,6 +5,7 @@ import { processCliArgs } from '@japa/runner'
 
 export default class Security {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
+    console.log("Middleware de seguridad")
     await next()
     return
     console.log("Middleware de seguridad")

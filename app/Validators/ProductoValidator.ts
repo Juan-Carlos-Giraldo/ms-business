@@ -31,7 +31,7 @@ export default class ProductoValidator {
     description: schema.string(),
     price: schema.number(),
     stock: schema.number(),
-    cliente_id: schema.number([
+    cliente_id: schema.number.optional([
       rules.exists({ table: 'clientes', column: 'id' })
     ])
   })
