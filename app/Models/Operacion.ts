@@ -8,10 +8,10 @@ export default class Operacion extends BaseModel {
   public id: number
 
   @column()
-  public date_start: DateTime
+  public date_start: Date
 
   @column()
-  public date_end: DateTime
+  public date_end: Date
 
   @column()
   public vehiculo_id: number
@@ -30,15 +30,15 @@ export default class Operacion extends BaseModel {
   //Relacion de le pertenece a... Municipio
   @belongsTo(() => Municipio, {
     //Nombre de la clave foranea que permita la relacion
-      foreignKey: 'municipio_id'
-    })
-    public municipio: BelongsTo<typeof Municipio>
-  
-  
-    //Relacion de le pertenece a... Vehiculo
-    @belongsTo(() => Vehiculo, {
+    foreignKey: 'municipio_id'
+  })
+  public municipio: BelongsTo<typeof Municipio>
+
+
+  //Relacion de le pertenece a... Vehiculo
+  @belongsTo(() => Vehiculo, {
     //Nombre de la clave foranea que permita la relacion
-      foreignKey: 'vehiculo_id'
-    })
-    public vehiculo: BelongsTo<typeof Vehiculo>
+    foreignKey: 'vehiculo_id'
+  })
+  public vehiculo: BelongsTo<typeof Vehiculo>
 }

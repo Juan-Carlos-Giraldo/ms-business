@@ -2,7 +2,7 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class CuotaValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -37,8 +37,7 @@ export default class CuotaValidator {
       rules.required(),
       rules.maxLength(255),
     ]),
-    contrato_id: schema.number([
-      rules.required(),
+    contrato_id: schema.number.optional([
       rules.exists({ table: 'contratoes', column: 'id' }),
     ]),
   })

@@ -2,9 +2,9 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class PersonaNaturalValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
-  
+
   public schema = schema.create({
     identificacion: schema.string([
       rules.regex(/^[0-9]+$/), // Solo permite dígitos del 0 al 9
@@ -18,12 +18,12 @@ export default class PersonaNaturalValidator {
     }, [
       rules.required() // Hace que el campo sea obligatorio
     ]),
-    empresa_id: schema.number([
+    empresa_id: schema.number.optional([
       rules.exists({ table: 'empresas', column: 'id' })
     ])
   })
 
- 
+
   public messages: CustomMessages = {
     'identificacion.regex': 'El campo identificacion solo acepta numeros',
     'identificacion.required': 'El campo identificacion es obligatorio',

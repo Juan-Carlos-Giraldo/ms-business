@@ -29,8 +29,8 @@ export default class RutaValidator {
     destino: schema.string(),
     distancia: schema.number(),
     // Relaciones
-    vehiculo_id: schema.number([rules.exists({ table: 'vehiculos', column: 'id' })]),
-    contrato_id: schema.number([rules.exists({ table: 'contratoes', column: 'id' })]),
+    vehiculo_id: schema.number.optional([rules.exists({ table: 'vehiculos', column: 'id' })]),
+    contrato_id: schema.number.optional([rules.exists({ table: 'contratoes', column: 'id' })]),
   })
 
   /**

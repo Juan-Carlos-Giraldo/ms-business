@@ -18,6 +18,9 @@ export default class Cuota extends BaseModel {
   @column()
   public estado: string
 
+  @column()
+  public contrato_id: number
+
   // Relaciones
 
   // Relacion de le pertenece a... Contrato

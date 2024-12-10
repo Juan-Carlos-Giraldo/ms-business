@@ -6,48 +6,34 @@ import DirListaOrdenValidator from 'App/Validators/DirListaOrdenValidator'; // I
 export default class DirListaOrdenesController {
   // Método de búsqueda
   public async find({ request, params }: HttpContextContract) {
-    let theDirListaOrden;
-    
-
-    try {
-      if (params.id) {
-        theDirListaOrden = await DirListaOrden.findOrFail(params.id);
-        await theDirListaOrden.load('direccion');
-        await theDirListaOrden.load('ruta');
-        return theDirListaOrden;
+    //Entonces si viene un id en los parametros, busco el teatro con ese id
+    if (params.id) {
+      let theDirListaOrden: DirListaOrden = await DirListaOrden.findOrFail(params.id)
+      return theDirListaOrden;
+      //Sino, se buscan todos los teatros
+    } else {
+      const data = request.all()
+      //Para no mandar todos los registros de una, se maneja la paginacion
+      if ("page" in data && "per_page" in data) {
+        //Si lo mandan, coja el atributo, sino asuma lo de la derecha
+        const page = request.input('page', 1);
+        const perPage = request.input("per_page", 20);
+        return await DirListaOrden.query().paginate(page, perPage)
       } else {
-        const data = request.all();
-        if ("page" in data && "per_page" in data) {
-          const page = request.input('page', 1);
-          const perPage = request.input("per_page", 20);
-          return await DirListaOrden.query().paginate(page, perPage);
-        } else {
-          return await DirListaOrden.query();
-        }
+        //Devuelve la lista de todos los teatros
+        return await DirListaOrden.query()
       }
-    } catch (error) {
-      throw new Exception(error.message || 'Error al procesar la solicitud', error.status || 500);
+
     }
+
   }
 
   // Método para crear un DirListaOrden
-  public async create({ request, response }: HttpContextContract) {
-    try {
-      // Validar datos usando el DirListaOrdenValidator
-      const payload = await request.validate(DirListaOrdenValidator);
-
-      // Crear el DirListaOrden si la validación es exitosa
-      const theDirListaOrden = await DirListaOrden.create(payload);
-      return theDirListaOrden;
-      
-    } catch (error) {
-      // Si el error es de validación, devolver los mensajes de error de forma legible
-      if (error.messages) {
-        return response.badRequest({ errors: error.messages.errors });
-      }
-      // Para cualquier otro tipo de error, lanzar una excepción genérica
-      throw new Exception(error.message || 'Error al procesar la solicitud', error.status || 500);
-    }
+  public async create({ request }: HttpContextContract) {
+    await request.validate(DirListaOrdenValidator);
+    const body = request.body();
+    const theDirListaOrden: DirListaOrden = await DirListaOrden.create(body);
+    return theDirListaOrden;
   }
 
   // Método para actualizar un DirListaOrden
@@ -68,11 +54,11 @@ export default class DirListaOrdenesController {
 
     // Obtener el DirListaOrden y actualizar los datos
     const theDirListaOrden = await DirListaOrden.findOrFail(params.id);
-    theDirListaOrden.orden= payload.orden;
+    theDirListaOrden.orden = payload.orden;
     theDirListaOrden.descripcion = payload.descripcion;
-    theDirListaOrden.ruta_id= payload.ruta_id;
-    theDirListaOrden.direccion_id= payload.direccion_id;
-    
+    theDirListaOrden.ruta_id = payload.ruta_id;
+    theDirListaOrden.direccion_id = payload.direccion_id;
+
 
     return await theDirListaOrden.save();
   }

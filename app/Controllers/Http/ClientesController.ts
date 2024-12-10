@@ -40,6 +40,7 @@ export default class ClientesController {
         const body = request.body();
         theCliente.nit = body.nit;
         theCliente.dpi = body.dpi;
+        theCliente.contacto = body.contacto;
         return await theCliente.save();
     }
 

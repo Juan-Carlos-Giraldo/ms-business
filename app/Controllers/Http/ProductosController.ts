@@ -44,7 +44,7 @@ export default class ProductosController {
         const theProducto: Producto = await Producto.findOrFail(params.id);
         const body = request.body();
         theProducto.name = body.name
-        theProducto.description = body.descripction
+        theProducto.description = body.description
         theProducto.price = body.price
         theProducto.stock = body.stock
         return await theProducto.save();

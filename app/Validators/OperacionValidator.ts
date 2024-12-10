@@ -2,7 +2,7 @@ import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class OperacionValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -26,8 +26,8 @@ export default class OperacionValidator {
   public schema = schema.create({
     date_start: schema.date(),
     date_end: schema.date(),
-    vehiculo_id: schema.number(),
-    municipio_id: schema.number(),
+    vehiculo_id: schema.number.optional(),
+    municipio_id: schema.number.optional(),
   })
 
   /**

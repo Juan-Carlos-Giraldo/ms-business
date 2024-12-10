@@ -5,15 +5,15 @@ export default class DirListaOrdenValidator {
   constructor(protected ctx: HttpContextContract) { }
 
   public schema = schema.create({
-    orden: schema.number([rules.unsigned(), rules.required()]),
+    orden: schema.number([rules.required()]),
     descripcion: schema.string([rules.alphaNum({
       allow: ['space', 'underscore', 'dash']
     })]),
-    ruta_id: schema.number([
-      rules.exists({ table: 'rutas', column: 'id' }), rules.required()
+    ruta_id: schema.number.optional([
+      rules.exists({ table: 'rutas', column: 'id' })
     ]),
-    direccion_id: schema.number([
-      rules.exists({ table: 'direccions', column: 'id' }), rules.required()
+    direccion_id: schema.number.optional([
+      rules.exists({ table: 'direccions', column: 'id' })
     ])
   })
 

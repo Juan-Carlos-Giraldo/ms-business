@@ -28,9 +28,9 @@ export default class DireccionValidator {
     neighborhood: schema.string(),
     address: schema.string(),
     comentaries: schema.string.optional(),
-    municipio_id: schema.number.optional([
-      rules.exists({ table: 'municipios', column: 'id' })
-    ]),
+    // municipio_id: schema.number.optional([
+    //   rules.exists({ table: 'municipios', column: 'id' })
+    // ]),
   })
 
   /**

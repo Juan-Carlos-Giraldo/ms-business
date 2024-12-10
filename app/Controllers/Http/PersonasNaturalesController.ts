@@ -7,7 +7,7 @@ import PersonaNaturalValidator from 'App/Validators/PersonaNaturalValidator'; //
 
 export default class PersonasNaturalesController {
   // Método para encontrar personas naturales
-  public async find({ request, params, response}: HttpContextContract) {
+  public async find({ request, params, response }: HttpContextContract) {
     let thePersonaNatural;
 
     try {
@@ -26,7 +26,7 @@ export default class PersonasNaturalesController {
           return response.notFound({ error: 'No se encontró información de usuario, verifique que el código sea correcto' });
         }
 
-        return {thePersonaNatural, usuario: userResponse.data };
+        return { thePersonaNatural, usuario: userResponse.data };
       } else {
         const data = request.all();
         if ('page' in data && 'per_page' in data) {
@@ -67,7 +67,7 @@ export default class PersonasNaturalesController {
         usuario_id: body.usuario_id,
         fecha_nacimiento: fechaNacimientoDate
       });
-      
+
       return thePersonaNatural;
     } catch (error) {
       if (error.messages) {
@@ -106,6 +106,7 @@ export default class PersonasNaturalesController {
         tipo_documento: payload.tipo_documento,
         fecha_nacimiento: fechaNacimientoDate,
         cliente_id: body.cliente_id,
+        empresa_id: body.empresa_id
       });
 
       return await thePersonaNatural.save();
