@@ -10,7 +10,7 @@ import AdministradorValidator from 'App/Validators/AdministradorValidator'; // I
 
 export default class AdministradorsController {
 
-    // Método de búsqueda
+  // Método de búsqueda
   public async find({ request, params }: HttpContextContract) {
     let theAdministrador;
 
@@ -50,7 +50,7 @@ export default class AdministradorsController {
   public async create({ request, response }: HttpContextContract) {
     try {
       // Validar los datos utilizando el AdministradorValidator
-      const payload = await request.validate(AdministradorValidator);
+      await request.validate(AdministradorValidator);
       const body = request.body()
 
       // Llamada al microservicio de usuarios para verificar el ID del usuario
@@ -64,7 +64,7 @@ export default class AdministradorsController {
       }
 
       // Crear el administrador si la validación es exitosa
-      const theAdministrador = await Administrador.create(payload);
+      const theAdministrador = await Administrador.create(body);
       return theAdministrador;
 
     } catch (error) {

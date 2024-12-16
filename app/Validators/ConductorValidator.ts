@@ -7,25 +7,18 @@ export default class ConductorValidator {
 
   public schema = schema.create({
     telefono: schema.string([
-      rules.required(),
       rules.regex(/^[0-9-]+$/) // Solo permite números y guiones
     ]),
     numero_licencia: schema.string([
-      rules.required(),
       rules.regex(/^[0-9-]+$/) // Solo permite números y guiones
     ]),
     fecha_nacimiento: schema.date({
       format: 'yyyy-MM-dd'
-    }, [
-      rules.required() // Hace que el campo sea obligatorio
-    ]),
+    }),
     fecha_vencimiento_licencia: schema.date({
       format: 'yyyy-MM-dd'
-    }, [
-      rules.required() // Hace que el campo sea obligatorio
-    ]),
+    }),
     usuario_id: schema.string([
-      rules.required(),
       rules.exists({ table: 'usuarios', column: 'id' })
     ])
   })
