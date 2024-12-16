@@ -55,3 +55,5 @@ import './routes/personasNaturales'
 import './routes/dirListaOrdendes'
 import "./routes/seguros"
 import './routes/restriction'
+import './routes/chats'
+import './routes/messages'
