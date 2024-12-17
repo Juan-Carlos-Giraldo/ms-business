@@ -35,8 +35,6 @@ export default class ProductosController {
         await request.validate(ProductoValidator);
         const body = request.body();
         const theProducto: Producto = await Producto.create(body);
-        // Imprimir el producto creado
-        console.log(body);
         return theProducto;
     }
 

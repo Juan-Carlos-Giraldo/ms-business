@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Chat from 'App/Models/Chat';
 
 import Message from "App/Models/Message";
+import Ws from 'App/Services/Ws';
 import MessageValidator from 'App/Validators/MessageValidator';
 
 export default class MessagesController {
@@ -25,6 +27,12 @@ export default class MessagesController {
         await request.validate(MessageValidator);
         const body = request.body();
         const theMessage: Message = await Message.create(body);
+        const chat = await Chat.findOrFail(theMessage.chatId);
+        if (chat.emailTo === theMessage.who) {
+            Ws.io.emit(chat.emailFrom, chat.emailTo + " te ha enviado un mensaje");
+        } else {
+            Ws.io.emit(chat.emailTo, chat.emailFrom + " te ha enviado un mensaje");
+        }
         return theMessage;
     }
 
@@ -41,5 +49,10 @@ export default class MessagesController {
         const theMessage: Message = await Message.findOrFail(params.id);
         response.status(204);
         return await theMessage.delete();
+    }
+
+    public async viewed({ params }: HttpContextContract) {
+        Ws.io.emit(params.id, "Se ha creado un nuevo mensaje");
+        return;
     }
 }

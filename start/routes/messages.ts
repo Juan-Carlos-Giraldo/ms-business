@@ -6,4 +6,5 @@ Route.group(() => {
     Route.get('/:id', 'MessagesController.find')
     Route.put('/:id', 'MessagesController.update')
     Route.delete('/:id', 'MessagesController.delete')
+    Route.get('/viewed/:id', 'MessagesController.viewed')
 }).prefix('/messages').middleware('security')

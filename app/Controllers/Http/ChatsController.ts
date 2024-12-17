@@ -10,7 +10,6 @@ export default class ChatsController {
             let theChat: Chat = await Chat.findOrFail(params.id)
             // Cargar los mensajes load
             await theChat.load('messages');
-            console.log(theChat.messages);
             return theChat;
         } else {
             const data = request.all()

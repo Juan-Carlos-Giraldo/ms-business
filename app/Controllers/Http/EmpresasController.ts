@@ -9,12 +9,10 @@ export default class EmpresasController {
     try {
       if (params.id) {
         let theEmpresa: Empresa = await Empresa.findOrFail(params.id);
-        console.log(theEmpresa);
-        
+
         await theEmpresa.load('cliente');
         await theEmpresa.load('personaNatural');
-        console.log(theEmpresa);
-        
+
         return theEmpresa;
       } else {
         const data = request.all();
