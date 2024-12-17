@@ -32,6 +32,7 @@ export default class MessagesController {
         const theMessage: Message = await Message.findOrFail(params.id);
         const body = request.body();
         theMessage.content = body.content;
+        theMessage.who = body.who;
         theMessage.viewed = body.viewed;
         return await theMessage.save();
     }

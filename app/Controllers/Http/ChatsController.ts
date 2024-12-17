@@ -26,6 +26,9 @@ export default class ChatsController {
 
     public async findByUser({ params }: HttpContextContract) {
         // Busca los chats donde el usuario sea el que se pasa por parámetro o el emailTo sea el que se pasa por parámetro
+        // Ws.io.emit("notifications", {
+        //     message: "end process bioinformatic backend",
+        // });
         return await Chat.query().where('userId', params.id).orWhere('emailTo', params.emailTo).preload('messages');
     }
 

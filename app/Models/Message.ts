@@ -10,6 +10,9 @@ export default class Message extends BaseModel {
   public content: string
 
   @column()
+  public who: string
+
+  @column()
   public viewed: boolean
 
   @column()

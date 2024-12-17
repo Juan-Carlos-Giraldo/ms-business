@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('content')
+      table.string('who')
       table.boolean('viewed').defaultTo(false)
 
       // Reference to chat

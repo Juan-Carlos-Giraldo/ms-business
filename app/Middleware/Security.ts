@@ -6,8 +6,6 @@ import { processCliArgs } from '@japa/runner'
 export default class Security {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
     await next()
-    console.log("Llego una peticion: [" + request.method() + "]" + request.url())
-    console.log("Body: " + JSON.stringify(request.body()))
     return
     console.log("Middleware de seguridad")
     let theRequest = request.toJSON()
