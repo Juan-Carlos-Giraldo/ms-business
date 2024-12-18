@@ -7,7 +7,6 @@ export default class Security {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
     await next()
     return
-    console.log("Middleware de seguridad")
     let theRequest = request.toJSON()
     if (theRequest.headers.authorization) {
       let token = theRequest.headers.authorization.replace("Bearer ", "")
@@ -23,16 +22,12 @@ export default class Security {
             }
           }
         )
-        console.log("La respuesta de ms-security >" + result.data + "<")
         if (result.data == true) {
-          console.log(result.data)
           await next()
         } else {
-          console.log("no puede ingresar")
           return response.status(401)
         }
       } catch (error) {
-        console.error(error)
         return response.status(401)
       }
     } else {
